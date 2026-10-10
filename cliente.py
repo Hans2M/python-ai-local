@@ -388,10 +388,10 @@ def temas() -> None:
                 if linea.strip():
                     d = json.loads(linea)
                     cnt[d['tema']] += 1
-    print('TEMAS — PROGRAMABILIDAD DE REDES (base local)')
+    print('TEMAS — PYTHON AI LOCAL (biblioteca general)')
     for slug, descripcion in TEMAS.items():
         print(f'  {slug:22s} {cnt[slug]:3d} registros — {descripcion}')
-    print('Usa: bot buscar "VLAN" --tema operadores')
+    print('Usa: bot buscar "manejar JSON" --tema json_csv')
 
 
 def buscar(texto: str, tema: str = '') -> None:
@@ -425,7 +425,7 @@ def agregar(ruta: Path, tema: str) -> None:
 
 def main(argv=None) -> int:
     p = argparse.ArgumentParser(prog='bot',
-        description='Tutor Python sin internet — Programabilidad de Redes, UNAS')
+        description='Asistente local de Python: resolver, revisar y corregir ejercicios')
     p.add_argument('modo', choices=['resolver', 'revisar', 'corregir', 'reproducir', 'exportar', 'estado', 'temas', 'buscar', 'agregar'])
     p.add_argument('archivo', nargs='?', help='Archivo .txt/.py o consulta en modo buscar')
     p.add_argument('--tema', default='', help='Tema (ej: funciones, archivos, bucles, operadores)')

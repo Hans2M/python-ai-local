@@ -23,3 +23,6 @@ cliente_antes_*.py
 # El modelo se descarga a Ollama en cada PC: nunca agregar sus pesos.
 *.gguf
 *.safetensors
+
+# Archivos privados para ampliar conocimiento sin publicarlos
+conocimiento/privado/

@@ -1,4 +1,6 @@
-INSTALACION LOCAL: .\INSTALAR_BOT.cmd
-COMPROBAR: bot estado
+INSTALACION: consulta README.md
+PRIMER USO: bot estado
+TEMAS: bot temas
 RESOLVER: bot resolver ejercicio.txt
-PAUSAR/REANUDAR: F6/F7 en VS Code
+PAUSAR: F6 / REANUDAR: F7 en VS Code (con extension)
+AGREGAR EJEMPLOS: bot agregar ejemplo.md --tema funciones

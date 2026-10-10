@@ -1,12 +1,7 @@
-# ESTE SCRIPT SE PUBLICA EN GitHub (carpeta raiz del repositorio).
-# ANTES DE SUBIR: cambia la variable $Repositorio por MasterGateway/python-ai-local.
-# En un repositorio PUBLICO, cualquier usuario puede descargarlo sin credenciales.
+﻿# Instalador remoto de Python AI Local para Windows (PowerShell).
 $ErrorActionPreference = 'Stop'
-$Repositorio = 'MasterGateway/python-ai-local'  # CAMBIAR una sola vez antes de publicar
+$Repositorio = 'MasterGateway/python-ai-local'
 $Rama = 'main'
-if($Repositorio.StartsWith('MasterGateway/')) {
-    throw 'El propietario debe cambiar MasterGateway por su nombre real de GitHub en instalar-online.ps1.'
-}
 $destino = Join-Path $env:LOCALAPPDATA 'Programs\PythonAILocal'
 $zipUrl = "https://github.com/$Repositorio/archive/refs/heads/$Rama.zip"
 $tmp = Join-Path $env:TEMP ('PythonAILocal-' + [guid]::NewGuid().ToString('N'))
@@ -21,15 +16,45 @@ try {
     if(-not $carpeta -or -not (Test-Path (Join-Path $carpeta.FullName 'servidor.py'))) {
         throw 'El repositorio no tiene servidor.py en la raiz. Comprueba la estructura publicada.'
     }
+    # Guardar las entradas anteriores antes de copiar la biblioteca nueva.
     $kbActual = Join-Path $destino 'conocimiento\indice.jsonl'
-    $preservarKB = Test-Path $kbActual
+    $entradasLocales = @()
+    if (Test-Path -LiteralPath $kbActual) {
+        $entradasLocales = @(Get-Content -LiteralPath $kbActual -Encoding UTF8 | Where-Object { $_.Trim() })
+    }
     New-Item -ItemType Directory -Force -Path $destino | Out-Null
-    # Mantener KB personalizada en actualizaciones.
     Get-ChildItem -LiteralPath $carpeta.FullName -Force | ForEach-Object {
-        if ($preservarKB -and $_.Name -eq 'conocimiento') {return}
         Copy-Item -LiteralPath $_.FullName -Destination (Join-Path $destino $_.Name) -Force -Recurse
     }
-    Write-Host "Descargado en: $destino"
+    # Fusionar por ID: preferir la versión nueva de los ejemplos incluidos,
+    # conservar los ejercicios agregados por el usuario y los ID desconocidos.
+    $kbNuevo = Join-Path $destino 'conocimiento\indice.jsonl'
+    $ids = @{}
+    foreach ($linea in @(Get-Content -LiteralPath $kbNuevo -Encoding UTF8)) {
+        if (-not $linea.Trim()) { continue }
+        try {
+            $obj = $linea | ConvertFrom-Json
+            if ($obj.id) { $ids[[string]$obj.id] = $true }
+        } catch { }
+    }
+    $extra = New-Object 'System.Collections.Generic.List[string]'
+    foreach ($linea in $entradasLocales) {
+        try {
+            $obj = $linea | ConvertFrom-Json
+            if ($obj.id -and -not $ids.ContainsKey([string]$obj.id)) {
+                $extra.Add($linea)
+                $ids[[string]$obj.id] = $true
+            }
+        } catch {
+            Write-Warning 'Se encontró una línea de conocimiento personalizada no válida; no se importó.'
+        }
+    }
+    if ($extra.Count -gt 0) {
+        $utf8 = New-Object System.Text.UTF8Encoding($false)
+        [System.IO.File]::AppendAllText($kbNuevo, ($extra -join "`n") + "`n", $utf8)
+        Write-Host "Referencias personales conservadas: $($extra.Count)"
+    }
+    Write-Host "Actualizado en: $destino"
     & (Join-Path $destino 'instalar.ps1')
 } finally {
     Remove-Item -LiteralPath $tmp -Force -Recurse -ErrorAction SilentlyContinue
