@@ -1,0 +1,25 @@
+# Configuracion y archivos de trabajo personales
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.env.*
+*.key
+*.pem
+*.session
+*.session-journal
+*.sqlite
+*.db
+logs/
+soluciones/
+.bot_sesiones/
+Pruebas/
+.vscode/
+*.tmp
+*.bak
+*.backup
+cliente_antes_*.py
+# El modelo se descarga a Ollama en cada PC: nunca agregar sus pesos.
+*.gguf
+*.safetensors

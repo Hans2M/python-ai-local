@@ -1,0 +1,4 @@
+INSTALACION LOCAL: .\INSTALAR_BOT.cmd
+COMPROBAR: bot estado
+RESOLVER: bot resolver ejercicio.txt
+PAUSAR/REANUDAR: F6/F7 en VS Code

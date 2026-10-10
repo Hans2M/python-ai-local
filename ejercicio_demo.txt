@@ -1,0 +1,9 @@
+Tema: condicionales
+Semana 2 - S3
+
+Un técnico de redes debe solicitar mediante input() una VLAN.
+Primero valide que sea un número de 1 a 4094. Si corresponde a 250,
+muestre "VLAN del laboratorio". Si es otra VLAN dentro de rango,
+muestre "VLAN válida". Si está fuera de rango, avise al usuario.
+
+Utilice if, elif y else como en la guía de clase.

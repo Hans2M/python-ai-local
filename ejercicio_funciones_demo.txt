@@ -1,0 +1,2 @@
+Tema: funciones
+Desarrolle una función que reciba un precio original y un porcentaje de descuento y devuelva el precio final. El programa principal debe solicitar ambos valores y mostrar el resultado.
