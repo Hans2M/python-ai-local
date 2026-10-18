@@ -1,2 +1,0 @@
-Tema: archivos
-Registrar productos en un archivo productos.txt con código, nombre y precio separados por comas. Cada ejecución debe agregar un registro sin eliminar los anteriores.
