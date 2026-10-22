@@ -1,0 +1,9 @@
+Tema: sesion12
+
+Utilizando el archivo trafico.csv (columnas: fecha, hora, origen, destino,
+servicio, accion, bytes), realiza un programa de acuerdo a lo visto en
+la sesión 12 que informe el número total de eventos, la suma de bytes,
+el conteo por acción, por origen y también por servicio.
+
+Restricciones: utiliza csv, Counter, DictReader, for, int, open y print.
+No uses pandas ni librerías externas. Explica paso a paso.

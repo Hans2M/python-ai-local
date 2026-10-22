@@ -1,0 +1,12 @@
+SESIÓN 12 - RETOS PARA PRACTICAR
+
+1) Con el archivo trafico.csv, contar eventos, bytes, acciones y origenes.
+2) Agregar a una copia de trafico.csv un evento PERMITIR de 300 bytes y comparar resultados.
+3) Modificar el programa para contar también los eventos por servicio.
+4) Explicar por qué contar eventos no equivale a contar personas o conexiones únicas.
+5) Explicar por qué estos datos ficticios no demuestran qué ocurrió en la red real.
+
+Para preguntar al bot, agrega al principio del enunciado: Tema: sesion12
+o ejecuta: bot resolver ejercicio.txt --tema sesion12
+
+Nota: el CSV de esta carpeta es un ejemplo original reducido, NO el del docente.

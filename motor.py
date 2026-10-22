@@ -18,8 +18,137 @@ BASE = Path(__file__).resolve().parent
 KB = BASE / "conocimiento" / "indice.jsonl"
 MODELO = os.environ.get("PYTHON_AI_MODELO", "qwen2.5:3b")
 OLLAMA_BASE = "http://127.0.0.1:11434"
-TEMAS = {'01_fundamentos': 'Sintaxis, variables, tipos de datos, entrada y salida', '02_operadores': 'Operadores aritméticos, lógicos y comparaciones', '03_condicionales': 'Decisiones if, elif, else y validación de datos', '04_bucles_listas': 'Bucles for/while, listas, rangos y comprensiones', '05_funciones': 'Funciones, argumentos, retorno, alcance y recursión', '06_archivos': 'Lectura, escritura y manejo de archivos de texto', '07_casos_practicos': 'Ejercicios integradores y problemas aplicados', '08_diccionarios_conjuntos': 'Diccionarios, tuplas, conjuntos y colecciones', '09_cadenas_regex': 'Cadenas, procesamiento de texto y expresiones regulares', '10_excepciones': 'Errores, excepciones, try/except/finally y validación', '11_modulos_paquetes': 'Módulos, importaciones, paquetes y entornos virtuales', '12_poo': 'Clases, objetos, herencia, métodos y encapsulación', '13_algoritmos': 'Búsqueda, ordenamiento, complejidad y algoritmos', '14_json_csv': 'Serialización JSON y archivos CSV', '15_fechas_tiempo': 'Fechas, horas y cálculo de intervalos', '16_bases_datos': 'SQLite, consultas SQL parametrizadas y persistencia', '17_http_apis': 'HTTP, APIs REST, peticiones y respuestas JSON', '18_testing_debugging': 'Pruebas unitarias, depuración y pruebas de casos límite', '19_automatizacion': 'Scripts de tareas, rutas, organización de archivos', '20_concurrencia_async': 'Hilos, asyncio, concurrencia y operaciones I/O', '21_tipos_dataclasses': 'Type hints, dataclasses y modelado de datos', '22_seguridad_buenas_practicas': 'Validación, secretos, rutas seguras y calidad del código', '23_datos_estadistica': 'Procesamiento de datos y estadística descriptiva', '24_cli_proyectos': 'Argumentos CLI, argparse, organización de proyectos', '25_redes': 'IPv4, sockets básicos y automatización de redes local'}
-SINONIMOS = {'fundamentos': '01_fundamentos', 'basico': '01_fundamentos', 'variables': '01_fundamentos', 'tipos': '01_fundamentos', 'input': '01_fundamentos', 'operadores': '02_operadores', 'aritmetica': '02_operadores', 'comparaciones': '02_operadores', 'condicionales': '03_condicionales', 'if': '03_condicionales', 'validacion': '03_condicionales', 'bucles': '04_bucles_listas', 'listas': '04_bucles_listas', 'for': '04_bucles_listas', 'while': '04_bucles_listas', 'comprensiones': '04_bucles_listas', 'funciones': '05_funciones', 'funcion': '05_funciones', 'def': '05_funciones', 'recursion': '05_funciones', 'archivos': '06_archivos', 'ficheros': '06_archivos', 'txt': '06_archivos', 'lectura': '06_archivos', 'casos': '07_casos_practicos', 'practicos': '07_casos_practicos', 'ejemplos': '07_casos_practicos', 'estructuras_de_datos': '08_diccionarios_conjuntos', 'diccionarios': '08_diccionarios_conjuntos', 'diccionario': '08_diccionarios_conjuntos', 'sets': '08_diccionarios_conjuntos', 'tuplas': '08_diccionarios_conjuntos', 'conjuntos': '08_diccionarios_conjuntos', 'cadenas': '09_cadenas_regex', 'texto': '09_cadenas_regex', 'regex': '09_cadenas_regex', 'expresiones_regulares': '09_cadenas_regex', 'excepciones': '10_excepciones', 'errores': '10_excepciones', 'try': '10_excepciones', 'modulos': '11_modulos_paquetes', 'paquetes': '11_modulos_paquetes', 'pip': '11_modulos_paquetes', 'venv': '11_modulos_paquetes', 'programacion_orientada_a_objetos': '12_poo', 'poo': '12_poo', 'clases': '12_poo', 'objetos': '12_poo', 'herencia': '12_poo', 'algoritmos': '13_algoritmos', 'ordenamiento': '13_algoritmos', 'busqueda': '13_algoritmos', 'json': '14_json_csv', 'csv': '14_json_csv', 'json_csv': '14_json_csv', 'fechas': '15_fechas_tiempo', 'tiempo': '15_fechas_tiempo', 'datetime': '15_fechas_tiempo', 'bases_de_datos': '16_bases_datos', 'sql': '16_bases_datos', 'sqlite': '16_bases_datos', 'base_de_datos': '16_bases_datos', 'bases_datos': '16_bases_datos', 'http': '17_http_apis', 'apis': '17_http_apis', 'api': '17_http_apis', 'rest': '17_http_apis', 'requests': '17_http_apis', 'testing': '18_testing_debugging', 'pruebas': '18_testing_debugging', 'debugging': '18_testing_debugging', 'unittest': '18_testing_debugging', 'automatizacion': '19_automatizacion', 'scripts': '19_automatizacion', 'pathlib': '19_automatizacion', 'async': '20_concurrencia_async', 'asyncio': '20_concurrencia_async', 'hilos': '20_concurrencia_async', 'threading': '20_concurrencia_async', 'dataclasses': '21_tipos_dataclasses', 'type_hints': '21_tipos_dataclasses', 'seguridad': '22_seguridad_buenas_practicas', 'buenas_practicas': '22_seguridad_buenas_practicas', 'datos': '23_datos_estadistica', 'estadistica': '23_datos_estadistica', 'pandas': '23_datos_estadistica', 'cli': '24_cli_proyectos', 'argparse': '24_cli_proyectos', 'proyectos': '24_cli_proyectos', 'redes': '25_redes', 'ip': '25_redes', 'ipv4': '25_redes', 'socket': '25_redes', 'switch': '25_redes', 'vlan': '25_redes'}
+TEMAS = {'01_fundamentos': 'Sintaxis, variables, tipos de datos, entrada y salida',
+ '02_operadores': 'Operadores aritméticos, lógicos y comparaciones',
+ '03_condicionales': 'Decisiones if, elif, else y validación de datos',
+ '04_bucles_listas': 'Bucles for/while, listas, rangos y comprensiones',
+ '05_funciones': 'Funciones, argumentos, retorno, alcance y recursión',
+ '06_archivos': 'Lectura, escritura y manejo de archivos de texto',
+ '07_casos_practicos': 'Ejercicios integradores y problemas aplicados',
+ '08_diccionarios_conjuntos': 'Diccionarios, tuplas, conjuntos y colecciones',
+ '09_cadenas_regex': 'Cadenas, procesamiento de texto y expresiones regulares',
+ '10_excepciones': 'Errores, excepciones, try/except/finally y validación',
+ '11_modulos_paquetes': 'Módulos, importaciones, paquetes y entornos virtuales',
+ '12_poo': 'Clases, objetos, herencia, métodos y encapsulación',
+ '13_algoritmos': 'Búsqueda, ordenamiento, complejidad y algoritmos',
+ '14_json_csv': 'Serialización JSON y archivos CSV',
+ '15_fechas_tiempo': 'Fechas, horas y cálculo de intervalos',
+ '16_bases_datos': 'SQLite, consultas SQL parametrizadas y persistencia',
+ '17_http_apis': 'HTTP, APIs REST, peticiones y respuestas JSON',
+ '18_testing_debugging': 'Pruebas unitarias, depuración y pruebas de casos límite',
+ '19_automatizacion': 'Scripts de tareas, rutas, organización de archivos',
+ '20_concurrencia_async': 'Hilos, asyncio, concurrencia y operaciones I/O',
+ '21_tipos_dataclasses': 'Type hints, dataclasses y modelado de datos',
+ '22_seguridad_buenas_practicas': 'Validación, secretos, rutas seguras y calidad del código',
+ '23_datos_estadistica': 'Procesamiento de datos y estadística descriptiva',
+ '24_cli_proyectos': 'Argumentos CLI, argparse, organización de proyectos',
+ '25_redes': 'IPv4, sockets básicos y automatización de redes local',
+ '26_sesion12_trafico': 'Sesión 12 — Análisis de registros de tráfico con csv, Counter y DictReader'}
+SINONIMOS = {'fundamentos': '01_fundamentos',
+ 'basico': '01_fundamentos',
+ 'variables': '01_fundamentos',
+ 'tipos': '01_fundamentos',
+ 'input': '01_fundamentos',
+ 'operadores': '02_operadores',
+ 'aritmetica': '02_operadores',
+ 'comparaciones': '02_operadores',
+ 'condicionales': '03_condicionales',
+ 'if': '03_condicionales',
+ 'validacion': '03_condicionales',
+ 'bucles': '04_bucles_listas',
+ 'listas': '04_bucles_listas',
+ 'for': '04_bucles_listas',
+ 'while': '04_bucles_listas',
+ 'comprensiones': '04_bucles_listas',
+ 'funciones': '05_funciones',
+ 'funcion': '05_funciones',
+ 'def': '05_funciones',
+ 'recursion': '05_funciones',
+ 'archivos': '06_archivos',
+ 'ficheros': '06_archivos',
+ 'txt': '06_archivos',
+ 'lectura': '06_archivos',
+ 'casos': '07_casos_practicos',
+ 'practicos': '07_casos_practicos',
+ 'ejemplos': '07_casos_practicos',
+ 'estructuras_de_datos': '08_diccionarios_conjuntos',
+ 'diccionarios': '08_diccionarios_conjuntos',
+ 'diccionario': '08_diccionarios_conjuntos',
+ 'sets': '08_diccionarios_conjuntos',
+ 'tuplas': '08_diccionarios_conjuntos',
+ 'conjuntos': '08_diccionarios_conjuntos',
+ 'cadenas': '09_cadenas_regex',
+ 'texto': '09_cadenas_regex',
+ 'regex': '09_cadenas_regex',
+ 'expresiones_regulares': '09_cadenas_regex',
+ 'excepciones': '10_excepciones',
+ 'errores': '10_excepciones',
+ 'try': '10_excepciones',
+ 'modulos': '11_modulos_paquetes',
+ 'paquetes': '11_modulos_paquetes',
+ 'pip': '11_modulos_paquetes',
+ 'venv': '11_modulos_paquetes',
+ 'programacion_orientada_a_objetos': '12_poo',
+ 'poo': '12_poo',
+ 'clases': '12_poo',
+ 'objetos': '12_poo',
+ 'herencia': '12_poo',
+ 'algoritmos': '13_algoritmos',
+ 'ordenamiento': '13_algoritmos',
+ 'busqueda': '13_algoritmos',
+ 'json': '14_json_csv',
+ 'csv': '14_json_csv',
+ 'json_csv': '14_json_csv',
+ 'fechas': '15_fechas_tiempo',
+ 'tiempo': '15_fechas_tiempo',
+ 'datetime': '15_fechas_tiempo',
+ 'bases_de_datos': '16_bases_datos',
+ 'sql': '16_bases_datos',
+ 'sqlite': '16_bases_datos',
+ 'base_de_datos': '16_bases_datos',
+ 'bases_datos': '16_bases_datos',
+ 'http': '17_http_apis',
+ 'apis': '17_http_apis',
+ 'api': '17_http_apis',
+ 'rest': '17_http_apis',
+ 'requests': '17_http_apis',
+ 'testing': '18_testing_debugging',
+ 'pruebas': '18_testing_debugging',
+ 'debugging': '18_testing_debugging',
+ 'unittest': '18_testing_debugging',
+ 'automatizacion': '19_automatizacion',
+ 'scripts': '19_automatizacion',
+ 'pathlib': '19_automatizacion',
+ 'async': '20_concurrencia_async',
+ 'asyncio': '20_concurrencia_async',
+ 'hilos': '20_concurrencia_async',
+ 'threading': '20_concurrencia_async',
+ 'dataclasses': '21_tipos_dataclasses',
+ 'type_hints': '21_tipos_dataclasses',
+ 'seguridad': '22_seguridad_buenas_practicas',
+ 'buenas_practicas': '22_seguridad_buenas_practicas',
+ 'datos': '23_datos_estadistica',
+ 'estadistica': '23_datos_estadistica',
+ 'pandas': '23_datos_estadistica',
+ 'cli': '24_cli_proyectos',
+ 'argparse': '24_cli_proyectos',
+ 'proyectos': '24_cli_proyectos',
+ 'redes': '25_redes',
+ 'ip': '25_redes',
+ 'ipv4': '25_redes',
+ 'socket': '25_redes',
+ 'switch': '25_redes',
+ 'vlan': '25_redes',
+ 'sesion12': '26_sesion12_trafico',
+ 'sesion_12': '26_sesion12_trafico',
+ 'sesion 12': '26_sesion12_trafico',
+ 'sesión 12': '26_sesion12_trafico',
+ 'trafico': '26_sesion12_trafico',
+ 'trafico_csv': '26_sesion12_trafico',
+ 'analisis_trafico': '26_sesion12_trafico',
+ 'registros_trafico': '26_sesion12_trafico',
+ 'analisis_de_registros_de_trafico': '26_sesion12_trafico',
+ 'sesion12_trafico': '26_sesion12_trafico'}
 STOP = set("""para como esta este estos estas crear programa hacer debe desde hasta cuando sobre entre unos unas tiene tener usando python codigo ejercicio problema cada mostrar escribir nombre realizar definir numero numeros valor valores los las una uno que por del con sin se en un de el al y o a si es son cual donde modo solucionar resolver necesito dame archivo imprime imprima""".split())
 
 
@@ -55,6 +184,11 @@ def detectar_tema(consulta: str, explicito: str = "") -> str:
         tema = normalizar_tema(m.group(1))
         if tema:
             return tema
+
+    # SESION12_DETECCION_INICIO
+    if re.search(r"(?i)\b(?:sesi[oó]n\s*12|tr[aá]fico\.csv|registros?\s+de\s+tr[aá]fico|an[aá]lisis\s+de\s+tr[aá]fico)\b", consulta):
+        return "26_sesion12_trafico"
+    # SESION12_DETECCION_FIN
     return ""
 
 
@@ -122,6 +256,19 @@ def generar(modo: str, contenido: str, archivo: str = "", tema: str = "", timeou
             entrada += "\nEJEMPLO PYTHON:\n```python\n" + d["codigo"][:1400] + "\n```"
         bloques.append(entrada)
     referencia = "\n\n---\n\n".join(bloques)[:11500] or "No hay material relacionado en la biblioteca; aplica conocimientos generales de Python."
+    # SESION12_REGLAS_INICIO
+    regla_sesion12 = (
+        "ENFOQUE OBLIGATORIO DE LA SESIÓN 12: Resolver siguiendo el nivel de la guía de clase. "
+        "Emplear csv, collections.Counter, csv.DictReader, un bucle for, int(fila['bytes']), "
+        "contadores por accion y origen, y agregar contador de servicio SOLO cuando se solicite. "
+        "Abrir trafico.csv con newline='' y encoding='utf-8-sig'. "
+        "No utilizar pandas, scapy, pyshark ni bibliotecas externas. "
+        "No inventar totales: 99 eventos y 142690 bytes solo corresponden al CSV del docente. "
+        "No confundir eventos con personas o conexiones unicas. El CSV de practica es ficticio. "
+        "Si falta el CSV, entregar codigo pero no afirmar resultados de ejecucion."
+        if detectado == "26_sesion12_trafico" else ""
+    )
+    # SESION12_REGLAS_FIN
     pedidos = {
         "resolver": "Analiza el enunciado, resuelve el problema y entrega: análisis breve, algoritmo, UN bloque ```python con código completo, explicación y ejemplo de entrada/salida.",
         "revisar": "Revisa el código SIN ejecutarlo. Señala errores de sintaxis, fallos de lógica, límites y mejoras con ejemplos verificables. No inventes resultados.",
@@ -140,6 +287,7 @@ Evita operaciones destructivas, llamadas de red innecesarias o exponer contrase�
 MODO: {modo.upper()}
 INSTRUCCIÓN: {pedidos[modo]}
 TEMA SUGERIDO: {detectado or 'general / detección automática'}
+REGLAS DIDÁCTICAS DEL TEMA: {regla_sesion12}
 ARCHIVO: {archivo}
 
 REFERENCIAS LOCALES:
